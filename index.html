@@ -789,7 +789,7 @@
 
                 // 更新手的位置 (用于光标和旋转)
                 STATE.hand.x = (lm[9].x - 0.5) * 2;
-                STATE.hand.y = (lm[9].y - 0.5) * 2;
+                STATE.hand.y = - (lm[9].y - 0.5) * 2;
 
                 // 更新光标位置 (将 -1..1 映射到屏幕像素)
                 updateCursor(STATE.hand.x, STATE.hand.y, true);
@@ -810,7 +810,7 @@
                         if (STATE.mode !== "FOCUS") {
                             triggerFocusMode();
                         }
-                        STATE.pinch.cooldown = 60; // 冷却 60 帧 (约1秒)
+                        STATE.pinch.cooldown = 0; // 冷却 60 帧 (约1秒)
                         STATE.pinch.counter = 0; // 重置计数
                     }
                 } else if (pinchDist > STATE.pinch.upThreshold) {
@@ -850,7 +850,7 @@
             // 注意：我们在 processGestures 里算的 x = (lm.x - 0.5)*2 已经是 -1(右) 到 1(左) 了
             // 咱们反算回 0..1
             const screenX = ((x * -1) + 1) / 2 * window.innerWidth;
-            const screenY = (y + 1) / 2 * window.innerHeight;
+            const screenY = ((y * -1) + 1) / 2 * window.innerHeight;
 
             cursorEl.style.left = `${screenX}px`;
             cursorEl.style.top = `${screenY}px`;
