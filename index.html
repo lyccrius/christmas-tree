@@ -850,7 +850,7 @@
             // 注意：我们在 processGestures 里算的 x = (lm.x - 0.5)*2 已经是 -1(右) 到 1(左) 了
             // 咱们反算回 0..1
             const screenX = ((x * -1) + 1) / 2 * window.innerWidth;
-            const screenY = (y + 1) / 2 * window.innerHeight;
+            const screenY = ((y * -1) + 1) / 2 * window.innerHeight;
 
             cursorEl.style.left = `${screenX}px`;
             cursorEl.style.top = `${screenY}px`;
