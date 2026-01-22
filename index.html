@@ -885,7 +885,7 @@
 
             // 3. 兜底：如果没抓到任何照片，随机选一张 (防止用户产生挫败感)
             const photos = particleSystem.filter((p) => p.type === "PHOTO");
-            if (photos.length) {
+            if (!photos.length) {
                 STATE.focusTarget = photos[Math.floor(Math.random() * photos.length)].mesh;
             }
         }
