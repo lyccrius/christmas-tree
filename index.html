@@ -465,8 +465,8 @@
                 threshold: 5,    // 必须保持 5 帧才触发 (防抖)
                 cooldown: 0,     // 冷却时间
                 isPinching: false,
-                downThreshold: 0.13, // 进入捏合的阈值（更严格）
-                upThreshold: 0.13    // 退出捏合的阈值（迟滞，避免抖动）
+                downThreshold: 0.07, // 进入捏合的阈值（更严格）
+                upThreshold: 0.07    // 退出捏合的阈值（迟滞，避免抖动）
             }
         };
 
@@ -799,6 +799,10 @@
                 const tips = [lm[8], lm[12], lm[16], lm[20]];
                 let avgDist = 0; tips.forEach((t) => (avgDist += Math.hypot(t.x - wrist.x, t.y - wrist.y))); avgDist /= 4;
 
+                if (avgDist < 0.25 && STATE.pinch.counter === 0) {
+                    STATE.mode = "TREE"; STATE.focusTarget = null;
+                    return;
+                } 
                 // --- 改进的捏合判定逻辑 (防抖 + 迟滞) ---
                 if (pinchDist < STATE.pinch.downThreshold) {
                     STATE.pinch.counter++; // 累积捏合帧数
@@ -812,6 +816,7 @@
                         }
                         STATE.pinch.cooldown = 0; // 冷却 60 帧 (约1秒)
                         STATE.pinch.counter = 0; // 重置计数
+                        return;
                     }
                 } else if (pinchDist > STATE.pinch.upThreshold) {
                     // 松开到足够远，退出捏合状态
@@ -821,9 +826,8 @@
                 }
 
                 // 其他手势
-                if (avgDist < 0.25 && STATE.pinch.counter === 0) {
-                    STATE.mode = "TREE"; STATE.focusTarget = null;
-                } else if (avgDist > 0.4 && STATE.pinch.counter === 0) {
+                
+                if (avgDist > 0.4 && STATE.pinch.counter === 0) {
                     STATE.mode = "SCATTER"; STATE.focusTarget = null;
                 }
 
