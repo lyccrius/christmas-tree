@@ -788,7 +788,7 @@
                 const lm = result.landmarks[0];
 
                 // 更新手的位置 (用于光标和旋转)
-                STATE.hand.x = (lm[9].x - 0.5) * 2;
+                STATE.hand.x = - (lm[9].x - 0.5) * 2;
                 STATE.hand.y = - (lm[9].y - 0.5) * 2;
 
                 // 更新光标位置 (将 -1..1 映射到屏幕像素)
