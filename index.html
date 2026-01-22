@@ -866,7 +866,7 @@
             // MediaPipe Hand Y: -1 (Top) to 1 (Bottom)
             // ThreeJS Camera Y: 1 (Top) to -1 (Bottom) -> 也就是 -HandY
 
-            raycaster.setFromCamera(new THREE.Vector2(-STATE.hand.x, -STATE.hand.y), camera);
+            raycaster.setFromCamera(new THREE.Vector2(-STATE.hand.x, STATE.hand.y), camera);
 
             // 2. 检测射线是否击中照片组
             const intersects = raycaster.intersectObjects(photoMeshGroup.children, true);
