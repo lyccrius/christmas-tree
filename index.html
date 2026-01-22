@@ -629,7 +629,7 @@
                 if (mode === "FOCUS" && this.mesh === focusTargetMesh) this.mesh.lookAt(camera.position);
                 let s = this.baseScale;
                 if (this.isDust) { s = this.baseScale * (0.8 + 0.4 * Math.sin(clock.elapsedTime * 4 + this.mesh.id)); if (mode === "TREE") s = 0; }
-                else if (mode === "SCATTER" && this.type === "PHOTO") s = this.baseScale * 2.5;
+                else if (mode === "SCATTER" && this.type === "PHOTO") s = this.baseScale * 4.7;
                 else if (mode === "FOCUS") { if (this.mesh === focusTargetMesh) s = 4.5; else s = this.baseScale * 0.8; }
                 this.mesh.scale.lerp(new THREE.Vector3(s, s, s), 4 * dt);
             }
